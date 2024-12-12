@@ -1,4 +1,4 @@
-import { addUser} from "../models/user.model"
+import { addUser} from "../models/user.model.js"
 //uuid 생성 버전4 
 import { v4 as uuidv4 } from "uuid"
 import { handleConnection, handleDisconnect, handlerEvent } from "./helper.js";

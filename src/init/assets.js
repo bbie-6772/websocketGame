@@ -30,12 +30,12 @@ const readFileAsync = (filename) => {
 export const loadGameAssets = async () => {
     try {
         // 파일들을 Promise.all() 을 이용해 병렬적으로 가져옴
-        const [filename1, filename2, filename3] = await Promise.all([
-            readFileAsync('filename1.json'),
-            readFileAsync('filename2.json'),
-            readFileAsync('filename3.json'),
+        const [stages, item_unlock, item] = await Promise.all([
+            readFileAsync('stage.json'),
+            readFileAsync('item_unlock.json'),
+            readFileAsync('item.json'),
         ]);
-        gameAssets = { filename1, filename2, filename3 }
+        gameAssets = { stages, item_unlock, item }
         return gameAssets
     } catch(err) {
         throw new Error('Failed to load game assets: '+ err.message)
