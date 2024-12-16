@@ -27,6 +27,7 @@ const readFileAsync = (filename) => {
     })
 };
 
+//파일 로드!
 export const loadGameAssets = async () => {
     try {
         // 파일들을 Promise.all() 을 이용해 병렬적으로 가져옴
@@ -43,6 +44,7 @@ export const loadGameAssets = async () => {
     }
 }
 
+//가져온 파일 데이터 읽기
 export const getGameAssets = () => {
     return gameAssets;
 };
