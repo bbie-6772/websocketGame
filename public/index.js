@@ -5,6 +5,10 @@ import ItemsController from "./assets/js/class/itemsController.js";
 import Score from "./assets/js/class/score.js";
 import { loadGameAssets, getGameAssets } from "./assets/js/assets.js"
 
+/* 카메라(화면) 설정 */
+// 보이는 화면 비율
+const CAMERA_WIDTH = 1200
+const CAMERA_HEIGHT = 1200
 const canvas = document.getElementById('gameCanvas');
 // 캔버스에 그래픽을 그리거나 조작하는데 이용
 const ctx = canvas.getContext('2d');
