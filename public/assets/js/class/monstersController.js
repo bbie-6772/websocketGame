@@ -4,19 +4,23 @@ class MonstersController {
     //몬스터들 저장공간
     monsters = [];
 
-    constructor(ctx, spawnSpeed) {
+    constructor(ctx, map, spawnSpeed, size, scaleRatio) {
         this.ctx = ctx
-        this.canvas = ctx.canvas
+        this.canvas = map
         // 스폰 시간
         this.spawnSpeed = spawnSpeed
-        this.spawnCoolDown = 0;
+        this.spawnCoolDown = 0
+        this.size = size
+        this.scaleRatio = scaleRatio
+        this.monsterStat = null
     }
 
-    createMonster() {
+    createMonster(monsterStat) {
+        const {id , health, defense, speed, color } = monsterStat
         const positionX = Math.random() * this.canvas.width;
         const positionY = Math.random() * this.canvas.height;
-        const size = Math.trunc(Math.random() * 20) + 10;
-        const monster = new Monster(this.ctx, positionX, positionY, size, size, 3, 1, 150, 10)
+        const size = Math.trunc(Math.random() * this.size) + this.size;
+        const monster = new Monster(this.ctx, positionX, positionY, size, size, id, health, defense, speed, this.scaleRatio, color)
 
         this.monsters.push(monster)
     }
@@ -35,29 +39,34 @@ class MonstersController {
     }
         
     // 확장성을 위해 핸들러처럼 사용
-    update(target, score, deltaTime) {
+    update(target, deltaTime) {
+        if (this.monsterStat === null) return
         // 스폰 시간에 맞춰 몬스터 스폰
-        if (this.spawnCoolDown >= Math.trunc(100 / this.spawnSpeed)) {
-            this.createMonster()
-            this.spawnCoolDown = 0;
+        if (this.spawnCoolDown <= 0) {
+            this.createMonster(this.monsterStat)
+            this.spawnCoolDown = this.spawnSpeed;
         }
-        this.spawnCoolDown += deltaTime * 10
+        this.spawnCoolDown -= deltaTime * 10
         
-
-        this.monsters.forEach((monster, idx) => {
-            // 죽었을 시 삭제
-            if (monster.health < 1) this.dead(score, monster, idx)
+        this.monsters.forEach((monster) => {
             monster.update(target, deltaTime)
         })
+    }
+
+    updateMonster(monsterStat) {
+        this.monsterStat = monsterStat
     }
 
     updateSpawnSpeed(time) {
         this.spawnSpeed = time;
     }
 
-    // 몬스터 하나 삭제
-    dead(score, monster, idx) {
-        score.addScore(monster.score)
+    // 몬스터 하나 삭제 + 아이템 생성
+    dead(itemsController, itemInfo, idx) {
+        const monster = this.monsters[idx]
+        //확률로 아이템 생성
+        const check = Math.trunc(Math.random() * 100)
+        if (check <= itemInfo.prob) itemsController.createItem(monster.x, monster.y, itemInfo)
         this.monsters.splice(idx, 1);
     }
 

@@ -4,22 +4,24 @@ class BulletsController {
     //몬스터들 저장공간
     bullets = [];
 
-    constructor(ctx, attackSpeed) {
+    constructor(ctx, map, attackSpeed, bulletSpeed, size, scaleRatio) {
         this.ctx = ctx
-        this.canvas = ctx.canvas
-        //초당 몇번 공격
+        this.canvas = map
+        //초당 공격 속도
         this.attackSpeed = attackSpeed
+        this.bulletSpeed = bulletSpeed
+        this.size = size
+        this.scaleRatio = scaleRatio
         this.attackCoolDown = 0;
     }
 
     //총알 생성
-    shootBullet(shooter, target) {
+    shootBullet(shooter, target, speed) {
         if (target === null) return
         const positionX = shooter.x;
         const positionY = shooter.y;
         const angle = Math.atan2(target.y - shooter.y, target.x - shooter.x)
-        const size = 10
-        const bullet = new Bullet(this.ctx, positionX, positionY, size, size, shooter.damage, 100, angle)
+        const bullet = new Bullet(this.ctx, positionX, positionY, this.size, shooter.damage, this.bulletSpeed, angle, this.scaleRatio)
 
         this.bullets.push(bullet)
     }
@@ -42,23 +44,23 @@ class BulletsController {
 
     // 타겟과 접촉 여부 확인
     colliedWith(target) {
-        return this.bullets.some((bullet, idx) => {
+        return this.bullets.some((bullet) =>
             // a의 왼쪽이 b의 오른쪽보다 왼쪽에 있을 때
-            if (target.x < bullet.x + bullet.width &&
+            bullet.hitOrOut = target.x < bullet.x + bullet.width &&
                 // a의 오른쪽이 b의 왼쪽보다 오른쪽에 있을 때
                 target.x + target.width > bullet.x &&
                 // a의 위가 b의 아래보다 위에 있을 때
                 target.y < bullet.y + bullet.height &&
                 // a의 아래가 b의 위보다 아래에 있을 때
-                target.y + target.height > bullet.y) {
-                bullet.hitOrOut = true
-            }
-            return bullet.hitOrOut
-        })
+                target.y + target.height > bullet.y)
     }
 
     updateAttackSpeed(time) {
         this.attackSpeed = time;
+    }
+
+    updateBulletSpeed(speed) {
+        this.bulletSpeed = speed;
     }
 
     // 총알 하나 삭제
@@ -86,9 +88,10 @@ class BulletsController {
         this.attackCoolDown += deltaTime * 100
 
         for (let i = 0; i < this.bullets.length; i++) {
-            // 맞거나 화면 밖으로 나갈 시 삭제
+            this.bullets[i].update(deltaTime)
+            // 화면 밖으로 나갈 시 삭제
             if (this.bullets[i].hitOrOut) this.delete(i)
-            this.bullets[i]?.update(deltaTime)
+            
         }
     }
 

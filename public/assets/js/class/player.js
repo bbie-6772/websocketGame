@@ -1,10 +1,10 @@
 class Player {
-    constructor(ctx, width, height, maxHealth, damage, speed) {
+    constructor(ctx, map,width, height, maxHealth, damage, speed, scaleRatio) {
         // 메서드에 이용하기위해 부여받음
         this.ctx = ctx
-        this.canvas = ctx.canvas
-        this.x = this.canvas.width / 2
-        this.y = this.canvas.height / 2
+        this.canvas = map
+        this.x = this.canvas.width / 2 + this.canvas.startX
+        this.y = this.canvas.height / 2 + this.canvas.startY
         // size를 넓이와 높이로 분리하여 변수로 지정
         this.width = width
         this.height = height
@@ -12,6 +12,7 @@ class Player {
         this.health = maxHealth;
         this.damage = damage
         this.speed = speed
+        this.scaleRatio = scaleRatio
         this.isDamaged = false;
         this.keys = {};
     }
@@ -25,7 +26,7 @@ class Player {
 
     // 확장성을 위해 핸들러처럼 사용
     update(deltaTime) {
-        this.moving(deltaTime)
+        return this.moving(deltaTime)
     }
 
     // 피격당할 시
@@ -55,17 +56,24 @@ class Player {
         const down = ["ArrowDown", "S", "s", "ㄴ"];
         const left = ["ArrowLeft", "A", "a", "ㅁ"];
         const right = ["ArrowRight", "D", "d", "ㅇ"];
+        let translateX = 0;
+        let translateY = 0;
+
         // keys 에 있는 입력 키들을 확인하기 위해 배열생성
         const keys = Object.keys(this.keys)
         // array.some과 array.includes를 통해 key가 입력되었는지 확인
-        if (keys.some((e) => up.includes(e) && this.keys[e]) && this.y > 0)
-            this.y -= this.speed * deltaTime;
-        if (keys.some((e) => down.includes(e) && this.keys[e]) && this.y < this.canvas.height - this.height)
-            this.y += this.speed * deltaTime;
-        if (keys.some((e) => left.includes(e) && this.keys[e]) && this.x > 0)
-            this.x -= this.speed * deltaTime;
-        if (keys.some((e) => right.includes(e) && this.keys[e]) && this.x < this.canvas.width - this.width)
-            this.x += this.speed * deltaTime;
+        if (keys.some((e) => up.includes(e) && this.keys[e]) && this.y > this.canvas.startY)
+            translateY = -this.speed * deltaTime * this.scaleRatio;
+        if (keys.some((e) => down.includes(e) && this.keys[e]) && this.y < this.canvas.height + this.canvas.startY - this.height)
+            translateY = this.speed * deltaTime * this.scaleRatio;
+        if (keys.some((e) => left.includes(e) && this.keys[e]) && this.x > this.canvas.startX)
+            translateX = -this.speed * deltaTime * this.scaleRatio;
+        if (keys.some((e) => right.includes(e) && this.keys[e]) && this.x < this.canvas.width + this.canvas.startX - this.width)
+            translateX = this.speed * deltaTime * this.scaleRatio;
+        this.x += translateX
+        this.y += translateY
+
+        return [translateX, translateY]
     }
 
     // 플레이어 나타내기
@@ -74,11 +82,11 @@ class Player {
         this.ctx.fillStyle = 'blue';
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
 
-        //체력바
+        //체력바 크기
         this.ctx.fillStyle = 'black';
-        this.ctx.fillRect(this.x, this.y - 10, this.height, 5);
+        this.ctx.fillRect(this.x, this.y - 10, this.width, 5);
         // 체력 1칸당 비율
-        const healthPerUnit = this.width / this.maxHealth;
+        const healthPerUnit = this.width / this.maxHealth
         // 체력바 그리기
         for (let i = 0; i < this.maxHealth; i++) {
             // 현재 체력 
@@ -89,7 +97,7 @@ class Player {
             if (i < this.maxHealth-1) {
                 // 구분 줄
                 this.ctx.fillStyle = 'black';
-                this.ctx.fillRect(this.x + (i + 1) * healthPerUnit, this.y - 10, 2, 5);
+                this.ctx.fillRect(this.x + (i + 1) * healthPerUnit, this.y - 10, 3, 5);
             }
         }
     }

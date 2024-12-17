@@ -4,19 +4,16 @@ class ItemsController {
     // 아이템 저장공간
     items = [];
 
-    constructor(ctx, spawnSpeed) {
+    constructor(ctx, map) {
         this.ctx = ctx
-        this.canvas = ctx.canvas
-        // 스폰 시간
-        this.spawnSpeed = spawnSpeed
-        this.spawnCoolDown = 0;
+        this.itemStat = null
+        this.canvas = map
     }
 
-    createItem() {
-        const positionX = Math.random() * this.canvas.width;
-        const positionY = Math.random() * this.canvas.height;
-        const size = 15;
-        const item = new Item(this.ctx, positionX, positionY, size, size, 0, 1, 10, 5)
+    createItem(x, y) {
+        const size = 30
+        const {id, score, health, damage, attackSpeed, speed, color} = this.itemStat
+        const item = new Item(this.ctx, x, y, size, size, id, damage, health, attackSpeed, speed, score,color)
 
         this.items.push(item)
     }
@@ -36,18 +33,15 @@ class ItemsController {
 
     // 확장성을 위해 핸들러처럼 사용
     update(deltaTime) {
-        // 스폰 시간에 맞춰 아이템
-        if (this.spawnCoolDown >= Math.trunc(100 / this.spawnSpeed)) {
-            this.createItem()
-            this.spawnCoolDown = 0;
-        }
-        this.spawnCoolDown += deltaTime * 10
-
         this.items.forEach((item, idx) => {
             item.update(deltaTime)
             // 획득 시 삭제
             if (item.pickup) this.delete(idx)
         })
+    }
+
+    updateItem(itemStat) {
+        this.itemStat = itemStat
     }
 
     // 아이템 하나 삭제
