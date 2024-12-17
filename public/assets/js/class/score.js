@@ -1,8 +1,7 @@
 // import { sendEvent } from "./Socket.js";
 
 class Score {
-    score = 0;
-    time = 0;
+
     HIGH_SCORE_KEY = 'highScore';
 
     constructor(ctx, scaleRatio) {
@@ -10,53 +9,55 @@ class Score {
         this.canvas = ctx.canvas;
         this.scaleRatio = scaleRatio;
         this.stageChange = true;
-    }
+        this.time = 0;
+        this.score = 0;
+        this.highScore = 0;
+        this.stage = 0;
+    }   
 
-    update(deltaTime) {
+    update(stage, deltaTime) {
         this.score += deltaTime;
         this.time += deltaTime;
-
-        if (Math.floor(this.score) === 100 && this.stageChange) {
-            this.stageChange = false;
-            // sendEvent(11, {"currentStage": 1,"targetStage":2 } )
-        }
+        this.highScore = Math.max(Number(localStorage.getItem(this.HIGH_SCORE_KEY)), this.score);
+        this.stage = stage?.level
     }
 
     addScore(score) {
         this.score += score;
     }
 
-    reset() {
-        this.score = 0;
+    getScore() {
+        return [this.score, this.highScore, this.time];
     }
 
     setHighScore() {
-        const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
-        if (this.score > highScore) {
+        const getHighScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
+        if (this.score > getHighScore) {
             localStorage.setItem(this.HIGH_SCORE_KEY, Math.floor(this.score));
         }
     }
 
-    getScore() {
-        return this.score;
-    }
-
-    draw() {
-        const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
-        const y = 20 * this.scaleRatio;
-
-        const fontSize = 20 * this.scaleRatio;
+    draw(player,map) {
+        const x = player.x - (map.width/2 - 5)
+        const fontSize = 40 * this.scaleRatio;
         this.ctx.font = `${fontSize}px serif`;
-        this.ctx.fillStyle = '#525250';
+        this.ctx.fillStyle = "rgb(244, 228, 137)";
 
-        const scoreX = this.canvas.width - 75 * this.scaleRatio;
-        const highScoreX = scoreX - 125 * this.scaleRatio;
+        const timeY = player.y - (map.height/2 - 40)
+        const scoreY = timeY + 40 * this.scaleRatio;
+        const highScoreY = scoreY + 40 * this.scaleRatio;
+        const stageY = highScoreY + 40 * this.scaleRatio;
 
-        const scorePadded = Math.floor(this.score).toString().padStart(6, 0);
-        const highScorePadded = highScore.toString().padStart(6, 0);
+        const scorePadded = Math.floor(this.score).toString().padStart(5, 0);
+        const highScorePadded = this.highScore.toString().padStart(5, 0);
+        const minutes = Math.floor((this.time % 3600) / 60);
+        const seconds = Math.floor(this.time % 60);
+        const timePadded = `Time: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-        this.ctx.fillText(scorePadded, scoreX, y);
-        this.ctx.fillText(`HI ${highScorePadded}`, highScoreX, y);
+        this.ctx.fillText(`Time: ${timePadded}`, x, timeY);
+        this.ctx.fillText(`Score: ${scorePadded}`, x, scoreY);
+        this.ctx.fillText(`High-Score: ${highScorePadded}`,x, highScoreY);
+        this.ctx.fillText(`Stage: ${this.stage}`, x, stageY);
     }
 }
 
