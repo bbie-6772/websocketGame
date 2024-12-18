@@ -13,4 +13,11 @@ canvas {
     border: 2px solid grey;
     overflow: hidden;
 }
+.chat-container {
+    transition: all 0.3s ease;
+}
 
+.chat-messages {
+    max-height: 400px;
+    overflow-y: auto;
+}

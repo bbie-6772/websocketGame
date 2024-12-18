@@ -17,12 +17,9 @@ class BulletsController {
     }
 
     //총알 생성
-    shootBullet(shooter, target, speed) {
-        if (target === null) return
-        const positionX = shooter.x;
-        const positionY = shooter.y;
+    shootBullet(shooter, target) {
         const angle = Math.atan2(target.y - shooter.y, target.x - shooter.x)
-        const bullet = new Bullet(this.ctx, positionX, positionY, this.size, shooter.damage, this.bulletSpeed, angle, this.scaleRatio)
+        const bullet = new Bullet(this.ctx, shooter.x, shooter.y, this.size, shooter.damage, this.bulletSpeed, angle, this.scaleRatio)
 
         this.bullets.push(bullet)
     }
@@ -61,8 +58,8 @@ class BulletsController {
         this.attackSpeed += speed;
     }
 
-    updateBulletSpeed(speed) {
-        this.bulletSpeed = speed;
+    updateAttackSpeed(speed) {
+        this.attackSpeed = speed;
     }
 
     // 총알 하나 삭제
@@ -81,9 +78,10 @@ class BulletsController {
     }
 
     // 확장성을 위해 핸들러처럼 사용
-    update(shooter, target, deltaTime) {
+    update(shooter, targets, deltaTime) {
+        const target = this.findCloseMonster(shooter, targets)
         //공격속도를 이용해 공격
-        if (this.attackCoolDown >= Math.trunc(100 / this.attackSpeed)) {
+        if (this.attackCoolDown >= Math.trunc(100 / this.attackSpeed) && target) {
             this.shootBullet(shooter, target)
             this.attackCoolDown = 0;
         }

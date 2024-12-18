@@ -9,7 +9,7 @@ export const addUser = (user) => {
 export const removeUser = (socketId) => {
     const index = users.findIndex((user) => user.socketId === socketId);
     // socketId를 통해 찾았을 경우 삭제하고 그 id값을 반환
-    if (index !== -1) return users.splice[index, 1](0);
+    if (index !== -1) return users.splice(index, 1);
 }
 // users getter
 export const getUser = () => {

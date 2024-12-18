@@ -7,11 +7,14 @@ export const createStage = (uuid)=> {
 }
 
 // stage get,set
-
 export const getStage = (uuid) => {
     return stages[uuid]
 }
 
-export const setStage = (uuid, id, timestamp) => {
-    return stages[uuid].push({ id, timestamp })
+export const removeStage = (uuid) => {
+   delete stages[uuid];
+}
+
+export const setStage = (uuid, level, timestamp) => {
+    return stages[uuid].push({ level, timestamp })
 }

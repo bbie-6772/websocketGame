@@ -14,6 +14,7 @@ class Player {
         this.speed = speed
         this.scaleRatio = scaleRatio
         this.isDamaged = false;
+        this.invincibleTime = 1500
         this.keys = {};
     }
 
@@ -34,8 +35,8 @@ class Player {
         this.isDamaged = true
         if (this.health > damage) this.health -= damage > 0 ? damage : 0;
         else this.health = 0
-        // 무적시간
-        setInterval(() => this.isDamaged = false, 1500)
+        // 무적시간 1.5초
+        setTimeout(() => this.isDamaged = false, this.invincibleTime)
     }
 
     heal(heal) {
@@ -47,6 +48,13 @@ class Player {
     statUp(damage, speed) {
         this.damage += damage
         this.speed += speed
+    }
+
+    reset(maxHealth, damage, speed) {
+        this.maxHealth = maxHealth
+        this.health = maxHealth
+        this.damage = damage
+        this.speed = speed
     }
 
     // 플레이어 움직임

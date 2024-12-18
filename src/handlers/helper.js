@@ -1,9 +1,11 @@
 import { CLIENT_VERSION } from "../constant.js"
 import { getUser, removeUser } from "../models/user.model.js"
+import { removeStage } from "../models/stage.model.js"
 import handlerMappings from "./handler.Mapping.js"
 
 export const handleDisconnect = (socket, uuid) => {
     removeUser(socket.id)
+    removeStage(uuid)
     console.log('User disconnected: ',socket.id)
     console.log('Current users: ',getUser())
 }
@@ -37,9 +39,12 @@ export const handlerEvent = (io, socket, data) => {
 
     const response = handler(data.userId, data.payload);
 
+    // 디버깅용 확인
+    if (response.status !== "success") console.log(response)
+
     // 서버 전 유저에게 알림
     if (response.broadcast) {
-        io.emit('response', 'broadcast');
+        io.emit('response', response);
         return;
     }
     // 대상 유저에게만 보냄

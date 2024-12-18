@@ -15,12 +15,12 @@ class MonstersController {
         this.monsterStat = null
     }
 
-    createMonster(monsterStat) {
+    createMonster(monsterStat, unlockItem) {
         const {id , health, defense, speed, color } = monsterStat
         const positionX = Math.random() * this.canvas.width;
         const positionY = Math.random() * this.canvas.height;
         const size = Math.trunc(Math.random() * this.size) + this.size;
-        const monster = new Monster(this.ctx, positionX, positionY, size, size, id, health, defense, speed, this.scaleRatio, color)
+        const monster = new Monster(this.ctx, positionX, positionY, size, size, id, health, defense, speed, this.scaleRatio, unlockItem, color)
 
         this.monsters.push(monster)
     }
@@ -39,12 +39,12 @@ class MonstersController {
     }
         
     // 확장성을 위해 핸들러처럼 사용
-    update(target, deltaTime) {
+    update(target, unlockedItem, deltaTime) {
         if (this.monsterStat === null) return
         // 스폰 시간에 맞춰 몬스터 스폰
         if (this.spawnCoolDown <= 0) {
-            this.createMonster(this.monsterStat)
-            this.spawnCoolDown = this.spawnSpeed;
+            this.createMonster(this.monsterStat, unlockedItem)
+            this.spawnCoolDown = Math.trunc(100 / this.spawnSpeed);
         }
         this.spawnCoolDown -= deltaTime * 10
         
@@ -62,11 +62,11 @@ class MonstersController {
     }
 
     // 몬스터 하나 삭제 + 아이템 생성
-    dead(itemsController, itemInfo, idx) {
+    dead(itemsController, idx) {
         const monster = this.monsters[idx]
         //확률로 아이템 생성
         const check = Math.trunc(Math.random() * 100)
-        if (check <= itemInfo.prob) itemsController.createItem(monster.x, monster.y, itemInfo)
+        if (check <= monster.item.prob) itemsController.createItem(monster.x, monster.y, monster.item)
         this.monsters.splice(idx, 1);
     }
 

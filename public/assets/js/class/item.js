@@ -1,5 +1,5 @@
 class Item {
-    constructor(ctx, positionX, positionY, width, height, id, damage, heal, attackSpeed, speed, score, color, scaleRatio) {
+    constructor(ctx, positionX, positionY, width, height, id, damage, health, attackSpeed, speed, score, color, prob, scaleRatio) {
         this.ctx = ctx
         this.canvas = ctx.canvas;
         this.x = positionX;
@@ -8,13 +8,14 @@ class Item {
         this.height = height;
         this.id = id;
         this.damage = damage;
-        this.heal = heal;
+        this.health = health;
         this.attackSpeed = attackSpeed
         this.speed = speed;
         this.score = score;
         this.pickup = false;
         this.color = color
         this.scaleRatio = scaleRatio
+        this.prob = prob
     }
 
     // 확장성을 위해 핸들러처럼 사용

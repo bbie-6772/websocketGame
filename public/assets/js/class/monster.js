@@ -1,5 +1,5 @@
 class Monster {
-    constructor(ctx, positionX, positionY, width, height, id, health, defense, speed, scaleRatio, color) {
+    constructor(ctx, positionX, positionY, width, height, id, health, defense, speed, scaleRatio, item, color) {
         this.ctx = ctx
         this.canvas = ctx.canvas;
         this.x = positionX;
@@ -16,6 +16,7 @@ class Monster {
         this.scaleRatio = scaleRatio
         this.isDamaged = false;
         this.color = color
+        this.item = item
     }
 
     // 확장성을 위해 핸들러처럼 사용
@@ -51,6 +52,7 @@ class Monster {
             this.preDirection = currentDirection
             this.directionTime = 0;
         }
+
         this.x += Math.cos(direction) * (this.speed + this.accSpeed) * deltaTime * this.scaleRatio
         this.y += Math.sin(direction) * (this.speed + this.accSpeed) * deltaTime * this.scaleRatio
     }

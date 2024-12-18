@@ -19,20 +19,16 @@ class Score {
     update(stage, deltaTime) {
         this.score += this.scorePs *deltaTime;
         this.time += deltaTime;
-        this.highScore = Math.max(Number(localStorage.getItem(this.HIGH_SCORE_KEY)), Math.trunc(this.score));
+        this.highScore = Math.max(this.highScore, Math.trunc(this.score));
         this.stage = stage?.level
-    }
-
-    setScorePs(scorePerSecond) {
-        this.scorePs = scorePerSecond
     }
 
     addScore(score) {
         this.score += score;
     }
 
-    getScore() {
-        return [this.score, this.highScore, this.time];
+    setScorePs(scorePerSecond) {
+        this.scorePs = scorePerSecond
     }
 
     setHighScore() {
@@ -42,13 +38,27 @@ class Score {
         }
     }
 
-    draw(player,map) {
-        const x = player.x - (map.width/2 - 5)
+    getHighScore() {
+        this.highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY)) || 0
+    }
+
+    getScore() {
+        return [this.score, this.highScore, this.time];
+    }
+
+    reset() {
+        this.time = 0;
+        this.score = 0;
+        this.stage = 0;
+    }
+
+    draw(map, camera) {
+        const x = map.x - (camera.width/2 - 5)
         const fontSize = 40 * this.scaleRatio;
         this.ctx.font = `${fontSize}px serif`;
         this.ctx.fillStyle = "rgb(12, 237, 204)";
 
-        const timeY = player.y - (map.height/2 - 40)
+        const timeY = map.y - (camera.height / 2 - 40 * this.scaleRatio)
         const scoreY = timeY + 40 * this.scaleRatio;
         const highScoreY = scoreY + 40 * this.scaleRatio;
         const stageY = highScoreY + 40 * this.scaleRatio;

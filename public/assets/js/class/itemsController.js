@@ -11,12 +11,12 @@ class ItemsController {
         this.scaleRatio = scaleRatio
     }
 
-    createItem(x, y) {
+    createItem(x, y, item) {
+        const {id, score, health, damage, attackSpeed, speed, prob, color} = item 
         const size = 30 * this.scaleRatio
-        const {id, score, health, damage, attackSpeed, speed, color} = this.itemStat
-        const item = new Item(this.ctx, x, y, size, size, id, damage, health, attackSpeed, speed, score, color, this.scaleRatio)
+        const createdItem = new Item(this.ctx, x, y, size, size, id, damage, health, attackSpeed, speed, score, color, prob, this.scaleRatio)
 
-        this.items.push(item)
+        this.items.push(createdItem)
     }
 
     // 타겟(플레이어)과 접촉 여부 확인
