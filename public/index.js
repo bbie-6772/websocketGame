@@ -8,8 +8,8 @@ import { loadGameAssets, getGameAssets } from "./assets/js/assets.js"
 
 /* 카메라(화면) 설정 */
 // 보이는 화면 비율
-const CAMERA_WIDTH = 1200
-const CAMERA_HEIGHT = 1200
+const CAMERA_WIDTH = 1360
+const CAMERA_HEIGHT = 745
 /* map 기본값 */
 // map 사이즈
 const MAP_WIDTH = 2000
