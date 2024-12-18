@@ -1,5 +1,5 @@
 class Item {
-    constructor(ctx, positionX, positionY, width, height, id, damage, heal, attackSpeed, speed, score,color) {
+    constructor(ctx, positionX, positionY, width, height, id, damage, heal, attackSpeed, speed, score, color, scaleRatio) {
         this.ctx = ctx
         this.canvas = ctx.canvas;
         this.x = positionX;
@@ -7,13 +7,14 @@ class Item {
         this.width = width;
         this.height = height;
         this.id = id;
-        this.damaged = damage;
+        this.damage = damage;
         this.heal = heal;
         this.attackSpeed = attackSpeed
         this.speed = speed;
         this.score = score;
         this.pickup = false;
         this.color = color
+        this.scaleRatio = scaleRatio
     }
 
     // 확장성을 위해 핸들러처럼 사용
@@ -24,7 +25,9 @@ class Item {
     draw() {
         //플레이어
         this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.ctx.beginPath()
+        this.ctx.roundRect(this.x, this.y, this.width, this.height, 50 * this.scaleRatio);
+        this.ctx.fill();
     }
 
 }

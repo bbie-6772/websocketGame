@@ -26,6 +26,8 @@ const PLAYER_SPEED = 300
 const BULLET_ATTACK_SPEED = 3;
 // 총알 속도
 const BULLET_SPEED = 600;
+// 사거리
+const BULLET_RANGE = 500;
 const BULLET_SIZE = 20;
 /* monster 기본값*/
 // 10초당 스폰 속도
@@ -68,6 +70,7 @@ function createSprites() {
     const playerHeightInGame = PLAYER_HEIGHT * scaleRatio;
     // 총알 크기
     const bulletSizeInGame = BULLET_SIZE * scaleRatio
+    const bulletRangeInGame = BULLET_RANGE * scaleRatio        
     // 몬스터 크기
     const monsterSizeInGame = MONSTER_SIZE * scaleRatio
     // 아이템 크기
@@ -101,6 +104,7 @@ function createSprites() {
         BULLET_ATTACK_SPEED,
         BULLET_SPEED,
         bulletSizeInGame,
+        bulletRangeInGame,
         scaleRatio
     )
 
@@ -115,6 +119,8 @@ function createSprites() {
     items = new ItemsController(
         ctx,
         map
+        map,
+        scaleRatio
     )
 
     score = new Score(
@@ -247,6 +253,7 @@ function update(currentTime) {
         // 아이템 스탯 적용 
         player.heal(item.heal)
         player.statUp(item.damage, item.speed)
+        bullets.increaseAttackSpeed(item.attackSpeed)
         score.addScore(item.score)
     }
 

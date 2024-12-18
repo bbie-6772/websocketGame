@@ -4,16 +4,17 @@ class ItemsController {
     // 아이템 저장공간
     items = [];
 
-    constructor(ctx, map) {
+    constructor(ctx, map, scaleRatio) {
         this.ctx = ctx
         this.itemStat = null
         this.canvas = map
+        this.scaleRatio = scaleRatio
     }
 
     createItem(x, y) {
-        const size = 30
+        const size = 30 * this.scaleRatio
         const {id, score, health, damage, attackSpeed, speed, color} = this.itemStat
-        const item = new Item(this.ctx, x, y, size, size, id, damage, health, attackSpeed, speed, score,color)
+        const item = new Item(this.ctx, x, y, size, size, id, damage, health, attackSpeed, speed, score, color, this.scaleRatio)
 
         this.items.push(item)
     }

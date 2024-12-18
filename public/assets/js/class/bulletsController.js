@@ -4,7 +4,7 @@ class BulletsController {
     //몬스터들 저장공간
     bullets = [];
 
-    constructor(ctx, map, attackSpeed, bulletSpeed, size, scaleRatio) {
+    constructor(ctx, map, attackSpeed, bulletSpeed, size, range, scaleRatio) {
         this.ctx = ctx
         this.canvas = map
         //초당 공격 속도
@@ -13,6 +13,7 @@ class BulletsController {
         this.size = size
         this.scaleRatio = scaleRatio
         this.attackCoolDown = 0;
+        this.range = range
     }
 
     //총알 생성
@@ -34,7 +35,8 @@ class BulletsController {
             const dx = target.x - shooter.x;
             const dy = target.y - shooter.y;
             const distance = Math.hypot(dx, dy);
-            if (distance < closestDistance) {
+            // 사거리 조절
+            if (distance < closestDistance && distance <= this.range) {
                 closestDistance = distance;
                 closestTarget = target;
             }
@@ -55,8 +57,8 @@ class BulletsController {
                 target.y + target.height > bullet.y)
     }
 
-    updateAttackSpeed(time) {
-        this.attackSpeed = time;
+    increaseAttackSpeed(speed) {
+        this.attackSpeed += speed;
     }
 
     updateBulletSpeed(speed) {
