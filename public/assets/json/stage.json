@@ -2,15 +2,75 @@
     "name": "stage",
     "version": "1.0.0",
     "data": [
-        { "level": 1, "time": 0, "scorePerSecond": 1 , "color": "#C4F0AB" },
-        { "level": 2, "time": 10, "scorePerSecond": 3, "color": "#E9F0AB" },
-        { "level": 3, "time": 20, "scorePerSecond": 5, "color": "#F0D2AB" },
-        { "level": 4, "time": 30, "scorePerSecond": 7, "color": "#F0B4AB" },
-        { "level": 5, "time": 40, "scorePerSecond": 10, "color": "#ABF0DC" },
-        { "level": 6, "time": 50, "scorePerSecond": 13, "color": "#ABE0F0" },
-        { "level": 7, "time": 540, "scorePerSecond": 15, "color": "#ABABF0" },
-        { "level": 8, "time": 630, "scorePerSecond": 18, "color": "#CEABF0" },
-        { "level": 9, "time": 720, "scorePerSecond": 25, "color": "#F0ABE5" },
-        { "level": 10, "time": 810, "scorePerSecond": 35, "color": "#F0ABCE" }
+        {
+            "level": 1,
+            "time": 0,
+            "scorePerSecond": 1,
+            "color": "#C4F0AB",
+            "spawn": 5
+        },
+        {
+            "level": 2,
+            "time": 10,
+            "scorePerSecond": 3,
+            "color": "#E9F0AB",
+            "spawn": 8
+        },
+        {
+            "level": 3,
+            "time": 20,
+            "scorePerSecond": 5,
+            "color": "#F0D2AB",
+            "spawn": 15
+        },
+        {
+            "level": 4,
+            "time": 30,
+            "scorePerSecond": 7,
+            "color": "#F0B4AB",
+            "spawn": 20
+        },
+        {
+            "level": 5,
+            "time": 40,
+            "scorePerSecond": 10,
+            "color": "#ABF0DC",
+            "spawn": 15
+        },
+        {
+            "level": 6,
+            "time": 50,
+            "scorePerSecond": 13,
+            "color": "#ABE0F0",
+            "spawn": 8
+        },
+        {
+            "level": 7,
+            "time": 60,
+            "scorePerSecond": 15,
+            "color": "#ABABF0",
+            "spawn": 10
+        },
+        {
+            "level": 8,
+            "time": 70,
+            "scorePerSecond": 18,
+            "color": "#CEABF0",
+            "spawn": 10
+        },
+        {
+            "level": 9,
+            "time": 80,
+            "scorePerSecond": 25,
+            "color": "#F0ABE5",
+            "spawn": 10
+        },
+        {
+            "level": 10,
+            "time": 90,
+            "scorePerSecond": 35,
+            "color": "#F0ABCE",
+            "spawn": 15
+        }
     ]
 }
