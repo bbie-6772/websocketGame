@@ -13,12 +13,12 @@ const CAMERA_WIDTH = 1920
 const CAMERA_HEIGHT = 1080
 /* map 기본값 */
 // map 사이즈
-const MAP_WIDTH = 2000
-const MAP_HEIGHT = 2000
+const MAP_WIDTH = 2500
+const MAP_HEIGHT = 2500
 /* player 기본값 */
 const PLAYER_WIDTH = 40;
 const PLAYER_HEIGHT = 60;
-const PLAYER_MAX_HEALTH = 5;
+const PLAYER_MAX_HEALTH = 3;
 const PLAYER_DAMAGE = 5;
 // 초당 이동속도(px/s)
 const PLAYER_SPEED = 300;
@@ -84,13 +84,15 @@ function createSprites() {
     map = new Map(
         ctx,
         mapWidthInGame,
-        mapHeightInGame
+        mapHeightInGame,
+        scaleRatio
     )
 
     camera = new Map(
         ctx,
         cameraWidth,
-        cameraHeight
+        cameraHeight,
+        scaleRatio
     )
 
     player = new Player(

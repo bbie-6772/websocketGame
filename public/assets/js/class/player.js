@@ -92,20 +92,20 @@ class Player {
 
         //체력바 크기
         this.ctx.fillStyle = 'black';
-        this.ctx.fillRect(this.x, this.y - 10, this.width, 5);
+        this.ctx.fillRect(this.x - this.width, this.y - 52 * this.scaleRatio, this.width * 3, 34 * this.scaleRatio );
         // 체력 1칸당 비율
-        const healthPerUnit = this.width / this.maxHealth
+        const healthPerUnit = this.width*3 / this.maxHealth
         // 체력바 그리기
         for (let i = 0; i < this.maxHealth; i++) {
             // 현재 체력 
             if (i < this.health) {
                 this.ctx.fillStyle = 'green';
-                this.ctx.fillRect(this.x + i * healthPerUnit, this.y - 10, healthPerUnit, 5);
+                this.ctx.fillRect(this.x + i * healthPerUnit - this.width, this.y - 50 * this.scaleRatio, healthPerUnit, 30 * this.scaleRatio);
             }
             if (i < this.maxHealth-1) {
                 // 구분 줄
-                this.ctx.fillStyle = 'black';
-                this.ctx.fillRect(this.x + (i + 1) * healthPerUnit, this.y - 10, 3, 5);
+                this.ctx.fillStyle = 'grey';
+                this.ctx.fillRect(this.x + (i + 1) * healthPerUnit - this.width, this.y - 50 * this.scaleRatio, 10 * this.scaleRatio, 30 * this.scaleRatio);
             }
         }
     }

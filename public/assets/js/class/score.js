@@ -55,8 +55,8 @@ class Score {
     draw(map, camera) {
         const x = map.x - (camera.width/2 - 5)
         const fontSize = 40 * this.scaleRatio;
-        this.ctx.font = `${fontSize}px serif`;
-        this.ctx.fillStyle = "rgb(12, 237, 204)";
+        this.ctx.font = `bold ${fontSize}px sans-serif `;
+        this.ctx.fillStyle = "rgb(0, 0, 0)";
 
         const timeY = map.y - (camera.height / 2 - 40 * this.scaleRatio)
         const scoreY = timeY + 40 * this.scaleRatio;

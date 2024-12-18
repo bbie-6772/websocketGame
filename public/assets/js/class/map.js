@@ -1,5 +1,5 @@
 class Map {
-    constructor(ctx, width, height) {
+    constructor(ctx, width, height, scaleRatio) {
         this.ctx = ctx;
         this.canvas = ctx.canvas;
         this.width = width;
@@ -9,6 +9,7 @@ class Map {
         this.y = Math.trunc(this.canvas.height / 2)
         this.startX = Math.trunc((this.canvas.width - this.width) / 2)
         this.startY = Math.trunc((this.canvas.height - this.height) / 2)
+        this.scaleRatio = scaleRatio
     }
 
     update([translateX, translateY], player, camera, stage) {
@@ -29,8 +30,16 @@ class Map {
     }
 
     draw() {
-        this.ctx.fillStyle = this.color
-        this.ctx.fillRect(this.startX, this.startY, this.width, this.height);
+        // this.ctx.fillStyle = this.color
+        // this.ctx.fillRect(this.startX, this.startY, this.width, this.height);
+        const size = 200 * this.scaleRatio
+
+        for (let y = 0; y < this.height; y += size) {
+            for (let x = 0; x < this.width; x += size) {
+                this.ctx.fillStyle = (x / size % 2 === y / size % 2) ? this.color : 'grey'; // 체크무늬 색상  
+                this.ctx.fillRect(this.startX + x, this.startY + y, size, size); // 사각형 그리기  
+            }
+        }  
     }
 }
 
