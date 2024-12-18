@@ -218,6 +218,9 @@ function update(currentTime) {
 
     //스테이지 이동
     stage = stageMove(stage, time)
+    //스테이지 당 획득점수 조절
+    score.setScorePs(stage.scorePerSecond)
+    monsters.updateSpawnSpeed(stage.spawn)
     //해금
     unlocked(stage)
     items.updateItem(unlockItem)
