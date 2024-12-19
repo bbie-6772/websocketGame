@@ -31,6 +31,8 @@
 
 - Node.js의 express 와 Websocket Package들을 이용하여 서버와 클라이언트의 통신을 설계하였습니다.
 
+- 아래는 프로젝트 시작 전, 초기 디자인입니다. 
+
 ![image](https://github.com/user-attachments/assets/2bb890cc-2118-4ca2-9342-fb40c6e7c26c)
 
 ### 기능
