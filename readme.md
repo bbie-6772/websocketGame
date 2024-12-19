@@ -6,8 +6,6 @@
 
 - 기존에 좋아하는 장르인 Vampire Survival Like 를 간략화하여 HTML의 canvas 기능을 사용해 구현하였습니다.
 
-![마지막](https://github.com/user-attachments/assets/89a6a8b0-6759-4f24-8356-8703941079ed)
-
 ### 기능
 
 - 닉네임을 입력하여 게임에 진입할 수 있습니다.
