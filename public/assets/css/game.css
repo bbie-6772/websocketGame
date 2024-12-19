@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    background-color: #c6dee3;
+    border: 2px solid grey;
+    overflow: hidden;
+    /* width: 500px;
+    height: 500px; */
+}
+.chat-container {
+    transition: all 0.3s ease;
+}
+
+.chat-messages {
+    max-height: 400px;
+    overflow-y: auto;
+}
