@@ -1,22 +1,28 @@
 import { getGameAssets } from "../init/assets.js";
 import { createStage, getStage, setStage } from "../models/stage.model.js";
-
-let itemScore = 0;
+import { setHighSore,getUser, setItemScore, getItemScore} from "../models/user.model.js";
 
 export const gameStart = (uuid, payload) => {
-    const { stages: stageInfo,} = getGameAssets();
+    const { stages: stageInfo } = getGameAssets();
 
-    //스테이지 초기화
+    // 스테이지 초기화
     createStage(uuid);
+    // 아이템 점수 초기화
+    setItemScore(uuid, 0)
 
     // 첫번째 stage의 정보로 setStage
     /*  payload.timestamp의 경우 원래는 클라이언트에서 들어온 정보이기에 
         서버에 바로 들이면 보안성 부분에서 문제가 일어날 수 있음   */
     setStage(uuid, stageInfo.data[0].level, payload.timestamp)
 
+    const user = getUser().find((e) => e.uuid === uuid)
+    if (!user) return {
+        status: "fail",
+        message: "Not valid userId failed"
+    }
+    
     console.log("Stage: ", getStage(uuid))
-
-    return { status: "success"}
+    return { status: "success", highScore: user.highScore }
 }
 
 export const gameEnd = (uuid, payload) => {
@@ -30,7 +36,7 @@ export const gameEnd = (uuid, payload) => {
             message: "No stages found for user"
         }
 
-    let totalScore = itemScore;
+    let totalScore = getItemScore(uuid);
 
     stages.forEach((stage, index) => {
         // 서버의 스테이지 초당 점수 가져오기 
@@ -53,10 +59,12 @@ export const gameEnd = (uuid, payload) => {
     if (Math.abs(score - totalScore) > 5) return {
             status: "fail",
             message: "Score verification failed"
-        }
+    }
 
-    //스테이지 초기화
-    createStage(uuid);
+    // 최고 점수 확인 및 기록 
+    setHighSore(uuid, payload.score)
+    // 아이템 점수 초기화 
+    setItemScore(uuid, 0)
 
     return { 
         status: "success",
@@ -102,7 +110,8 @@ export const getItem = (uuid,payload) => {
     }
 
     //점수 검증때 사용
-    itemScore += score
+    const itemScore = getItemScore(uuid) + score
+    setItemScore(uuid, itemScore)
 
     return {
         status: "success"
