@@ -6,12 +6,31 @@ const users = [];
 export const addUser = (user) => {
     users.push(user)
 }
-export const removeUser = (socketId) => {
-    const index = users.findIndex((user) => user.socketId === socketId);
-    // socketId를 통해 찾았을 경우 삭제하고 그 id값을 반환
-    if (index !== -1) return users.splice(index, 1);
+export const setUserSocket = (uuid, socketId, nickname) => {
+    const userIdx = users.findIndex((e) => e.uuid === uuid)
+    if (userIdx !== -1) {
+        users[userIdx].socketId = socketId
+        users[userIdx].nickname = nickname
+    }
 }
 // users getter
 export const getUser = () => {
     return users
+}
+
+export const setItemScore = (uuid, Score) => {
+    const userIdx = users.findIndex((e) => e.uuid === uuid)
+    if (userIdx !== -1) users[userIdx].itemScore = Score
+}
+
+export const getItemScore = (uuid) =>{
+    const userIdx = users.findIndex((e) => e.uuid === uuid)
+    const user = users[userIdx]
+    return user.itemScore
+}
+
+export const setHighSore = (uuid, highScore) => {
+    const userIdx = users.findIndex((e) => e.uuid === uuid )
+    const user = users[userIdx]
+    if (user.highScore < highScore) users[userIdx].highScore = highScore 
 }
