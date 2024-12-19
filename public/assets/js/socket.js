@@ -9,6 +9,7 @@ let chatInput = null;
 let chatSend = null;
 let chatMessages = null;
 
+// 채팅창 오버레이 관련
 document.addEventListener('DOMContentLoaded', () => {  
     chatToggle = document.getElementById('chatToggle');
     chatOverlay = document.getElementById('chatOverlay');
@@ -44,46 +45,65 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
+
+    chatInput.addEventListener('keyup', function (event) {
+        // 이벤트 버블링 중지
+        event.stopPropagation(); 
+    });
 })
 
-// localhost:3000 에 연결하여 CLIENT_VERSION을 넘겨줌
+// localhost:3000 에 서버를 연결하여 값을 넘겨줌
 const socket = io('http://localhost:3000', {
     query: {
         clientVersion: CLIENT_VERSION,
+        // 로컬에 저장된 id 정보를 같이 보냄
+        userId: localStorage.getItem("userId") || null,
+        nickname: localStorage.getItem("nickname") || null
     },
 });
 
 // 클라이언트에서 저장해둘 userId 선언
 let userId = null;
+socket.once('connection', (data) => {
+    userInfo = data
+})
 
 socket.on('response', (data) => {
-    console.log(data)
     // 응답이 올바르지 않을 시 내쫓기
     if (data.status !== "success") window.location.href = 'serverError.html'
-
+    // 최고 점수 갱신
+    if (data.highScore) userInfo.highScore = data.highScore
     if (data.msg) {
-        if (data.id === userId){
+        // 사용자 이름 확인
+        const nicknameSpan = document.createElement('span');
+        nicknameSpan.className = 'text-sm text-gray-600 mr-2 mb-1';  
+        nicknameSpan.textContent = data?.nickname || "익명"
+        if (data.id === userInfo.uuid){
             // 사용자 메시지 추가  
             const userMessageDiv = document.createElement('div');
-            userMessageDiv.className = 'flex justify-end';
-            userMessageDiv.innerHTML = `  
-                    <div class="bg-blue-500 text-white p-2 rounded-lg max-w-[70%]">  
-                        ${data.msg}  
-                    </div>  
-                `;
+            userMessageDiv.className = 'flex flex-col items-end mb-2';
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'bg-blue-500 text-white p-2 rounded-lg max-w-[70%]';
+            messageDiv.textContent = data.msg;  
+ 
+            userMessageDiv.appendChild(nicknameSpan); 
+            userMessageDiv.appendChild(messageDiv);
             chatMessages.appendChild(userMessageDiv);
             // 스크롤 맨 아래로  
             chatMessages.scrollTop = chatMessages.scrollHeight;
         } else {
             // 다른 사람 메시지
-            const botMessageDiv = document.createElement('div');
-            botMessageDiv.className = 'flex justify-start';
-            botMessageDiv.innerHTML = `  
-                    <div class="bg-gray-100 text-black p-2 rounded-lg max-w-[70%]">  
-                         ${data.msg}  
-                    </div>  
-                `;
-            chatMessages.appendChild(botMessageDiv);
+            const otherMessageDiv = document.createElement('div');
+            otherMessageDiv.className = 'flex flex-col items-start mb-2';
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = "bg-gray-100 text-black p-2 rounded-lg max-w-[70%]";
+            messageDiv.textContent = data.msg;  
+
+            otherMessageDiv.appendChild(nicknameSpan);
+            otherMessageDiv.appendChild(messageDiv);
+            chatMessages.appendChild(otherMessageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
