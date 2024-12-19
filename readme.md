@@ -1,6 +1,6 @@
 # WebGame with **Websocket**
 
-- Websocket을 기능을 이용해 서버와 통신을 하며 검증 과정을 거치는 WebGame 프로젝트 입니다.
+- Websocket을 이용해 서버와 통신을 하며 검증 과정을 거치는 WebGame 프로젝트 입니다.
 
 ## Client
 
