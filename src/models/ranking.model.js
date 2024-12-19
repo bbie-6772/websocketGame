@@ -4,7 +4,7 @@ import { getUser } from "./user.model.js";
 let rankings = [];
 
 export const loadRanking = () => {
-    const rank = getUser().sort((a, b) => a.highScore - b.highScore).map((e) => {
+    const rank = getUser().sort((a, b) => b.highScore - a.highScore).map((e) => {
         return [e.nickname, e.highScore]
     }).slice(0, 9)
     rankings = rank
