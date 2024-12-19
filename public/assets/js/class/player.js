@@ -55,6 +55,8 @@ class Player {
         this.health = maxHealth
         this.damage = damage
         this.speed = speed
+        this.x = this.canvas.width / 2 + this.canvas.startX
+        this.y = this.canvas.height / 2 + this.canvas.startY
     }
 
     // 플레이어 움직임

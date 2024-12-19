@@ -29,6 +29,11 @@ class Map {
             }
     }
 
+    reset() {
+        this.x = Math.trunc(this.canvas.width / 2)
+        this.y = Math.trunc(this.canvas.height / 2)
+    }
+
     draw() {
         // this.ctx.fillStyle = this.color
         // this.ctx.fillRect(this.startX, this.startY, this.width, this.height);
