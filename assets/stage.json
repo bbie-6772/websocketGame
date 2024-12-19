@@ -7,14 +7,14 @@
             "time": 0,
             "scorePerSecond": 1,
             "color": "#C4F0AB",
-            "spawn": 5
+            "spawn": 20
         },
         {
             "level": 2,
             "time": 30,
             "scorePerSecond": 3,
             "color": "#E9F0AB",
-            "spawn": 8
+            "spawn": 15
         },
         {
             "level": 3,
