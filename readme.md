@@ -15,6 +15,7 @@
 ![image](https://github.com/user-attachments/assets/269354a2-59ca-472e-a532-c7ff7b737cbc)
 
 - 진입한 게임은 Vampire Survival Like 유형으로 시간이 지남에 따라 Stage가 증가합니다.
+( 스테이지가 증가할 수록 얻는 점수가 증가합니다! )
 
 - Stage가 증가할 수록 강력한 적과 아이템이 드랍됩니다.  
 (스테이지 구분을 위해 아래의 체크무늬 색이 변하게 됩니다!)
