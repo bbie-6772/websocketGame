@@ -8,6 +8,9 @@ let chatClose = null;
 let chatInput = null;
 let chatSend = null;
 let chatMessages = null;
+// 클라이언트에서 저장해둘 정보 선언
+let userInfo = null
+let rankings = null
 
 // 채팅창 오버레이 관련
 document.addEventListener('DOMContentLoaded', () => {  
@@ -62,8 +65,6 @@ const socket = io('http://localhost:3000', {
     },
 });
 
-// 클라이언트에서 저장해둘 userId 선언
-let userId = null;
 socket.once('connection', (data) => {
     userInfo = data
 })
@@ -106,25 +107,28 @@ socket.on('response', (data) => {
             chatMessages.appendChild(otherMessageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-        
     }
 });
 
-// 서버에 연결되었을 시, console에 출력하며 userId를 저장
-socket.on('connection', (data) => {
-    console.log('connection: ', data);
-    userId = data.uuid;
-});
+// 랭킹 조회
+socket.on('rank', (rank) => {
+    rankings = rank
+})
 
 // 클라이언트에서 총합적으로 server에 보내주는걸 관리
-const sendEvent = (handlerId, payload) => {
+export const sendEvent = (handlerId, payload) => {
     socket.emit('event', {
-        userId,
+        userId: userInfo.uuid,
         clientVersion: CLIENT_VERSION,
         handlerId,
         payload,
     });
 };
 
+export const getUser = () => {
+    return userInfo
+}
 
-export { sendEvent, };
+export const getRank = () => {
+    return rankings
+}
