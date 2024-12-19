@@ -32,7 +32,7 @@ class Map {
     draw() {
         // this.ctx.fillStyle = this.color
         // this.ctx.fillRect(this.startX, this.startY, this.width, this.height);
-        const size = 200 * this.scaleRatio
+        const size = 150 * this.scaleRatio
 
         for (let y = 0; y < this.height; y += size) {
             for (let x = 0; x < this.width; x += size) {

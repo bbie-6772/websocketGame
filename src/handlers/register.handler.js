@@ -18,8 +18,6 @@ const registerHandler = (io) => {
         socket.on('event', (data) => handlerEvent(io, socket, data));
         // 유저가 '연결해제' 시 실행
         socket.on('disconnect', () => handleDisconnect(socket))
-
-        socket.on('chat', (data) => handlerEvent(io, socket, data));
     })
 }
 
