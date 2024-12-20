@@ -21,7 +21,7 @@ export const gameStart = (uuid, payload) => {
         message: "Not valid userId failed"
     }
     
-    console.log("Stage: ", getStage(uuid))
+    // console.log("Stage: ", getStage(uuid))
     return { status: "success", highScore: user.highScore }
 }
 
