@@ -11,43 +11,43 @@
         },
         {
             "id": 5002,
-            "health": 10,
+            "health": 15,
             "defense": 2,
             "speed": 200,
             "color": "#E0E0E0"
         },
         {
             "id": 5003,
-            "health": 25,
+            "health": 40,
             "defense": 5,
             "speed": 400,
             "color": "#C0C0C0"
         },
         {
             "id": 5004,
-            "health": 30,
-            "defense": 5,
+            "health": 80,
+            "defense": 10,
             "speed": 200,
             "color": "#A0A0A0"
         },
         {
             "id": 5005,
-            "health": 60,
-            "defense": 8,
+            "health": 150,
+            "defense": 20,
             "speed": 300,
             "color": "#808080"
         },
         {
             "id": 5006,
             "health": 100,
-            "defense": 8,
+            "defense": 5,
             "speed": 1000,
             "color": "#606060"
         },
         {
             "id": 5007,
             "health": 500,
-            "defense": 15,
+            "defense": 20,
             "speed": 500,
             "color": "#404040"
         }

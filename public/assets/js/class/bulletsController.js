@@ -55,7 +55,6 @@ class BulletsController {
     }
 
     increaseAttackSpeed(speed) {
-        console.log(speed,this.attackSpeed)
         this.attackSpeed += speed;
     }
 
