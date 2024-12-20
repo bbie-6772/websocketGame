@@ -11,21 +11,21 @@
         },
         {
             "id": 5002,
-            "health": 8,
+            "health": 10,
             "defense": 2,
             "speed": 200,
             "color": "#E0E0E0"
         },
         {
             "id": 5003,
-            "health": 12,
+            "health": 25,
             "defense": 5,
             "speed": 400,
             "color": "#C0C0C0"
         },
         {
             "id": 5004,
-            "health": 15,
+            "health": 30,
             "defense": 5,
             "speed": 200,
             "color": "#A0A0A0"
@@ -46,7 +46,7 @@
         },
         {
             "id": 5007,
-            "health": 100,
+            "health": 300,
             "defense": 15,
             "speed": 300,
             "color": "#404040"
