@@ -9,9 +9,9 @@ class Score {
         this.scorePs = 1;
         this.time = 0;
         this.score = 0;
-        this.highScore = userInfo.highScore || 0
-        this.userId = userInfo.uuid || null
-        this.nickname = userInfo.nickname || null
+        this.highScore = userInfo?.highScore || 0
+        this.userId = userInfo?.uuid || null
+        this.nickname = userInfo?.nickname || null
         this.stage = 0;
         this.rank = [];
     }
