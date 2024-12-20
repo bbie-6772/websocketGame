@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 //디렉토리 경로(현재 파일위치) 추출
 const __dirname = path.dirname(__filename);
 // 현재 파일위치 기준으로 assets 폴더 찾기(../../ => 최상위 폴더로 이동)
-const basePath = path.join(__dirname, '../../assets')
+const basePath = path.join(__dirname, '../../public/assets/json')
 
 //파일 읽기 함수
 const readFileAsync = (filename) => {
