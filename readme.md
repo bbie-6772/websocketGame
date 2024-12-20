@@ -1,12 +1,12 @@
 # WebGame with **Websocket**
 
-- Websocket을 기능을 이용해 서버와 통신을 하며 검증 과정을 거치는 WebGame 프로젝트 입니다.
+- Websocket을 이용해 서버와 통신을 하며 검증 과정을 거치는 WebGame 프로젝트 입니다.
+
+- 일부 기간 (2024.12.20~ 2024.12.23) 동안 체험이 가능 합니다! http://52.4.56.68:3000/
 
 ## Client
 
 - 기존에 좋아하는 장르인 Vampire Survival Like 를 간략화하여 HTML의 canvas 기능을 사용해 구현하였습니다.
-
-![마지막](https://github.com/user-attachments/assets/89a6a8b0-6759-4f24-8356-8703941079ed)
 
 ### 기능
 
@@ -17,6 +17,7 @@
 ![image](https://github.com/user-attachments/assets/269354a2-59ca-472e-a532-c7ff7b737cbc)
 
 - 진입한 게임은 Vampire Survival Like 유형으로 시간이 지남에 따라 Stage가 증가합니다.
+( 스테이지가 증가할 수록 얻는 점수가 증가합니다! )
 
 - Stage가 증가할 수록 강력한 적과 아이템이 드랍됩니다.  
 (스테이지 구분을 위해 아래의 체크무늬 색이 변하게 됩니다!)
@@ -32,13 +33,15 @@
 
 - Node.js의 express 와 Websocket Package들을 이용하여 서버와 클라이언트의 통신을 설계하였습니다.
 
+- 아래는 프로젝트 시작 전, 초기 디자인입니다. 
+
 ![image](https://github.com/user-attachments/assets/2bb890cc-2118-4ca2-9342-fb40c6e7c26c)
 
 ### 기능
 
 #### 유저 확인
 
-- 클라이언트에서 게임 접속 시, 자신의 User_ID를 찾아 서버에 전송하게 됩니다.
+- 클라이언트에서 게임 접속 시, 자신의 User_ID를 찾아(LocalStorage 이용) 서버에 전송하게 됩니다.
 
 - 이 때 서버는 User_ID가 알맞은 유형인지, 서버의 User(model)에 존재하는지를 확인합니다.
 
