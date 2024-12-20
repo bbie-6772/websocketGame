@@ -46,6 +46,7 @@ class Player {
     }
 
     statUp(damage, speed) {
+        console.log(damage, this.damage, speed, this.speed)
         this.damage += damage
         this.speed += speed
     }

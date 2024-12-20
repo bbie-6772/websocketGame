@@ -32,23 +32,23 @@
         },
         {
             "id": 5005,
-            "health": 25,
-            "defense": 3,
-            "speed": 250,
+            "health": 60,
+            "defense": 8,
+            "speed": 300,
             "color": "#808080"
         },
         {
             "id": 5006,
-            "health": 50,
+            "health": 100,
             "defense": 8,
             "speed": 1000,
             "color": "#606060"
         },
         {
             "id": 5007,
-            "health": 300,
+            "health": 500,
             "defense": 15,
-            "speed": 300,
+            "speed": 500,
             "color": "#404040"
         }
     ]

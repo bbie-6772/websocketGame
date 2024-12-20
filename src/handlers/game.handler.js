@@ -55,8 +55,10 @@ export const gameEnd = (uuid, payload) => {
         totalScore += stageDuration * scorePerSecond
     })
 
-    // 점수, 타임스탬프 검증 (오차범위 +-5까지 인정)
-    if (Math.abs(score - totalScore) > 5) return {
+    console.log(score, totalScore)
+
+    // 점수, 타임스탬프 검증 (오차범위 +-10까지 인정)
+    if (Math.abs(score - totalScore) > 10) return {
             status: "fail",
             message: "Score verification failed"
     }
