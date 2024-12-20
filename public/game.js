@@ -302,7 +302,7 @@ function gameLoop(currentTime) {
         monsters.update(player, unlockItem, deltaTime)
         items.update(deltaTime)
         // 랭킹 , 최고점수 실시간 업데이트
-        score.update(stage, getUser().highScore , getRank(),deltaTime)
+        score.update(stage, getUser() , getRank(),deltaTime)
 
         // 가까운몬스터 찾기
         bullets.update(player, monsters.monsters, deltaTime)

@@ -16,11 +16,13 @@ class Score {
         this.rank = [];
     }
 
-    update(stage, highScore, rank, deltaTime) {
+    update(stage, userInfo, rank, deltaTime) {
         this.score += this.scorePs *deltaTime;
         this.time += deltaTime;
-        this.highScore = Math.max(highScore, Math.trunc(this.score));
+        this.highScore = Math.max(userInfo?.highScore, Math.trunc(this.score));
         this.stage = stage?.level
+        this.nickname = userInfo?.nickname
+        this.userId = userInfo?.uuid
         this.rank = rank
     }
 
