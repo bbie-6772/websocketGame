@@ -33,9 +33,9 @@ class ItemsController {
     }
 
     // 확장성을 위해 핸들러처럼 사용
-    update(deltaTime) {
+    update(map, deltaTime) {
         this.items.forEach((item, idx) => {
-            item.update(deltaTime)
+            item.update(map, deltaTime)
             // 획득 시 삭제
             if (item.pickup) this.delete(idx)
         })

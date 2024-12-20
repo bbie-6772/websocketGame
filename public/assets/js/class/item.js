@@ -19,7 +19,11 @@ class Item {
     }
 
     // 확장성을 위해 핸들러처럼 사용
-    update(deltaTime) {
+    update(map, deltaTime) {
+        if ( this.x < map.startX 
+            || this.x > map.startX + map.width
+            || this.y < map.startY
+            || this.y > map.startY + map.height) this.pickup = true;
     }
 
     // 아이템 나타내기

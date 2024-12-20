@@ -300,7 +300,7 @@ function gameLoop(currentTime) {
         // 업데이트
         map.update(player.update(deltaTime), player, camera, stage);
         monsters.update(player, unlockItem, deltaTime)
-        items.update(deltaTime)
+        items.update(map, deltaTime)
         // 랭킹 , 최고점수 실시간 업데이트
         score.update(stage, getUser() , getRank(),deltaTime)
 
@@ -367,7 +367,7 @@ function gameLoop(currentTime) {
         setupGameReset()
     }
     // 클리어
-    if (!gameClear && time >= 600) {
+    if (!gameClear && time >= 300) {
         gameClear = true;
         sendEvent(3, { timestamp: Date.now(), score: Math.trunc(scorePoint) })
         setupGameReset()
