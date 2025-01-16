@@ -6,8 +6,8 @@ import { getRanking, loadRanking } from "../models/ranking.model.js"
 
 export const handleConnection = (socket, userInfo) => {
     loadRanking()
-    //console.log(`New user connected: ${userInfo.uuid} with socket Id ${socket.id}` );
-    //console.log('Current users: ', getUser())
+    console.log(`New user connected: ${userInfo.uuid} with socket Id ${socket.id}` );
+    console.log('Current users: ', getUser())
 
     //유저와 연결되면 uuid를 메세지로 전달
     socket.emit('connection', userInfo )
@@ -15,8 +15,8 @@ export const handleConnection = (socket, userInfo) => {
 
 export const handleDisconnect = (socket, uuid) => {
     removeStage(uuid)
-    //console.log('User disconnected: ', socket.id)
-    //console.log('Current users: ', getUser())
+    console.log('User disconnected: ', socket.id)
+    console.log('Current users: ', getUser())
 }
 
 export const handlerEvent = (io, socket, data) => {
